@@ -87,38 +87,41 @@
 
             </RelativeLayout>
 
-            <Button
-
-                android:id="@+id/edtanswera"
+            <TextView
+                android:id="@+id/caseA"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:gravity="center"
                 android:background="@drawable/btntl"
                 android:text="A"
-                android:textColor="@color/white"/>
+                android:textColor="@color/blue"/>
 
-            <Button
-                android:id="@+id/edtanswerb"
+            <TextView
+                android:id="@+id/caseB"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:gravity="center"
                 android:background="@drawable/btntl"
                 android:text="B"
-                android:textColor="@color/white"/>
+                android:textColor="@color/blue"/>
 
-            <Button
-                android:id="@+id/edtanswerc"
+            <TextView
+                android:id="@+id/caseC"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:gravity="center"
                 android:background="@drawable/btntl"
                 android:text="C"
-                android:textColor="@color/white"/>
+                android:textColor="@color/blue"/>
 
-            <Button
-                android:id="@+id/edtanswerd"
+            <TextView
+                android:id="@+id/caseD"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:gravity="center"
                 android:background="@drawable/btntl"
                 android:text="D"
-                android:textColor="@color/white"/>
+                android:textColor="@color/blue"/>
 
 
         </LinearLayout>
@@ -128,24 +131,8 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.1"
+            android:layout_weight="1"
             android:gravity="center">
-
-            <ImageButton
-                android:id="@+id/btn_stop"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_call" />
-
-            <ImageButton
-                android:id="@+id/btn_change"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="16dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_call" />
 
             <ImageButton
                 android:id="@+id/btn_5050"
@@ -156,7 +143,7 @@
                 android:background="@drawable/btn_call" />
 
             <ImageButton
-                android:id="@+id/btn_audience"
+                android:id="@+id/btn_callfr"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="16dp"
@@ -164,12 +151,22 @@
                 android:background="@drawable/btn_call" />
 
             <ImageButton
-                android:id="@+id/btn_call"
+                android:id="@+id/btn_askpl"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="16dp"
                 android:layout_weight="1"
                 android:background="@drawable/btn_call" />
+
+            <ImageButton
+                android:id="@+id/btn_advise"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_call" />
+
+
         </TableRow>
 
 

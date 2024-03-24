@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main2"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnshowscore"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btnarchiverment" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end">
+
+                <Button
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btnhelp"
+                    android:text="60s"
+                    android:id="@+id/btntime"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="50dp"
+                android:paddingBottom="50dp">
+
+                <EditText
+                    android:id="@+id/edtask"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:paddingTop="40dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="40dp"
+                    android:text="Câu hỏi "
+                    android:textSize="20dp"
+                    android:background="@drawable/bg_ask"/>
+
+                <TextView
+                    android:id="@+id/txtasknumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/keynumberask"
+                    android:paddingStart="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="10dp"
+                    android:text="Cau 1"
+                    android:textSize="15dp"
+                    />
+
+            </RelativeLayout>
+
+            <Button
+
+                android:id="@+id/edtanswera"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/btntl"
+                android:text="A"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/edtanswerb"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/btntl"
+                android:text="B"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/edtanswerc"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/btntl"
+                android:text="C"
+                android:textColor="@color/white"/>
+
+            <Button
+                android:id="@+id/edtanswerd"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/btntl"
+                android:text="D"
+                android:textColor="@color/white"/>
+
+
+        </LinearLayout>
+
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.1"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/btn_stop"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_call" />
+
+            <ImageButton
+                android:id="@+id/btn_change"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_call" />
+
+            <ImageButton
+                android:id="@+id/btn_5050"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_call" />
+
+            <ImageButton
+                android:id="@+id/btn_audience"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_call" />
+
+            <ImageButton
+                android:id="@+id/btn_call"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_call" />
+        </TableRow>
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

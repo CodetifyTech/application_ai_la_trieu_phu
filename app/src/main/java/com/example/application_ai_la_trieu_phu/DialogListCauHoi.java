@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 public class DialogListCauHoi extends DialogFragment {
@@ -15,7 +14,7 @@ public class DialogListCauHoi extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        View rootView = inflater.inflate(R.layout.list_cauhoi, null);
+        View rootView = inflater.inflate(R.layout.layout_custom_dialog_list_cau_hoi, null);
         builder.setView(rootView)
                 .setTitle("Mốc Tiền Thưởng")
                 .setPositiveButton("OK", (dialog, which) -> {

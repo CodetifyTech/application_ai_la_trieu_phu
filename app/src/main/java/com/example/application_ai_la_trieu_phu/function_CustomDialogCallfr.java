@@ -8,13 +8,13 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
-public class CustomDialogCallfr extends Dialog{
+public class function_CustomDialogCallfr extends Dialog{
     public Context context;
     private Button btncall1, btncall2, btncall3, btncall4, btncancel;
 
     private Boolean isPress;
 
-    public CustomDialogCallfr(Context context){
+    public function_CustomDialogCallfr(Context context){
         super(context);
         this.context = context;
     }

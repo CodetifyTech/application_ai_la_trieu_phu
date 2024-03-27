@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
-public class MainActivity extends AppCompatActivity {
+public class mh_start extends AppCompatActivity {
     Button btn;
     Button btn_start, btn_hd;
 
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
 
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this,
+                Toast.makeText(mh_start.this,
                         "Bạn Đã Sẵn Sàng Đến Với Chương Trình Của Chúng Tôi",
                         Toast.LENGTH_SHORT).show();
 
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void huongDan(){
-        DialogHuongDan dialogFragment = new DialogHuongDan();
+        function_DialogHuongDan dialogFragment = new function_DialogHuongDan();
         dialogFragment.show(getSupportFragmentManager(), "myDialog");
     }
 

@@ -1,10 +1,10 @@
 package com.example.application_ai_la_trieu_phu;
 
-public class Answers {
+public class function_Answers {
     private String content;
     private boolean isCorrect;
 
-    public Answers(String content, boolean isCorrect) {
+    public function_Answers(String content, boolean isCorrect) {
         this.content = content;
         this.isCorrect = isCorrect;
     }

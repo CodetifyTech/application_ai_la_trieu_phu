@@ -5,13 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".mh_player">
 
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints"
-        android:text="click here"
-        android:id="@+id/btn"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

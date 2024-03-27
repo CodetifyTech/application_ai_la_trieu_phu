@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Application_Ai_la_trieu_phu</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string-array name="list1">
+        <item>1000000</item>
+        <item>100000</item>
+        <item>10000</item>
+        <item>1000</item>
+        <item>100</item>
+        <item>1</item>
+    </string-array>
 </resources>

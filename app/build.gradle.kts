@@ -41,4 +41,12 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
     implementation("com.google.firebase:firebase-analytics")
+    val lifecycle_version = "2.7.0"
+    val arch_version = "2.2.0"
+
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version")
+    // LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata:$lifecycle_version")
+
 }

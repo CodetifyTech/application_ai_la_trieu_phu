@@ -8,7 +8,7 @@ import android.view.Window;
 import android.widget.Button;
 
 
-public class CustomDialog5050 extends Dialog {
+public class function_CustomDialog5050 extends Dialog {
 
 
     public Context context;
@@ -18,7 +18,7 @@ public class CustomDialog5050 extends Dialog {
     private boolean isButtonClicked = false;
 
 
-    public CustomDialog5050(Context context) {
+    public function_CustomDialog5050(Context context) {
         super(context);
         this.context = context;
 

@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
 
-public class DialogHuongDan extends DialogFragment {
+public class function_DialogHuongDan extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Sử dụng Builder class cho AlertDialog để tạo dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

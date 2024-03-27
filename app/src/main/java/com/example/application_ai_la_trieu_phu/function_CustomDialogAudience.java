@@ -8,7 +8,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class CustomDialogAudience  extends Dialog {
+public class function_CustomDialogAudience extends Dialog {
     public Context context;
 
     private Button buttonOK;
@@ -20,7 +20,7 @@ public class CustomDialogAudience  extends Dialog {
 
     private Boolean ispress;
 
-    public CustomDialogAudience(Context context){
+    public function_CustomDialogAudience(Context context){
         super(context);
         this.context = context;
     }

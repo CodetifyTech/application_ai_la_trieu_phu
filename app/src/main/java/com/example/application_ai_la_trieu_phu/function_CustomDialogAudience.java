@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 public class function_CustomDialogAudience extends Dialog {
     public Context context;
-
     private Button buttonOK;
     private Button buttonCancel;
 

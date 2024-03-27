@@ -38,7 +38,7 @@ public class CustomDialogCallfr extends Dialog{
         btncall1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btncall1.setBackgroundResource(R.drawable.btnhelp);
+                btncall1.setBackgroundResource(R.drawable.btn_help);
                 btncall2.setBackgroundResource(R.drawable.bg_ask);
                 btncall3.setBackgroundResource(R.drawable.bg_ask);
                 btncall4.setBackgroundResource(R.drawable.bg_ask);
@@ -50,7 +50,7 @@ public class CustomDialogCallfr extends Dialog{
             @Override
             public void onClick(View v) {
                 btncall1.setBackgroundResource(R.drawable.bg_ask);
-                btncall2.setBackgroundResource(R.drawable.btnhelp);
+                btncall2.setBackgroundResource(R.drawable.btn_help);
                 btncall3.setBackgroundResource(R.drawable.bg_ask);
                 btncall4.setBackgroundResource(R.drawable.bg_ask);
                 isPress =true;
@@ -62,7 +62,7 @@ public class CustomDialogCallfr extends Dialog{
             public void onClick(View v) {
                 btncall1.setBackgroundResource(R.drawable.bg_ask);
                 btncall2.setBackgroundResource(R.drawable.bg_ask);
-                btncall3.setBackgroundResource(R.drawable.btnhelp);
+                btncall3.setBackgroundResource(R.drawable.btn_help);
                 btncall4.setBackgroundResource(R.drawable.bg_ask);
                 isPress =true;
             }
@@ -74,7 +74,7 @@ public class CustomDialogCallfr extends Dialog{
                 btncall1.setBackgroundResource(R.drawable.bg_ask);
                 btncall2.setBackgroundResource(R.drawable.bg_ask);
                 btncall3.setBackgroundResource(R.drawable.bg_ask);
-                btncall4.setBackgroundResource(R.drawable.btnhelp);
+                btncall4.setBackgroundResource(R.drawable.btn_help);
                 isPress =true;
             }
         });

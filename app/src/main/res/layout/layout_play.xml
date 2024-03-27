@@ -2,11 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main2"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
-    android:background="@drawable/img"
-    >
+    tools:context=".mh_player"    android:background="@drawable/img">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,10 +23,10 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnshowscore"
+                android:id="@+id/btn_showscore"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btnarchiverment" />
+                android:background="@drawable/btn_archiverment" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -38,9 +37,9 @@
                 <Button
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btnhelp"
+                    android:background="@drawable/btn_help"
                     android:text="60s"
-                    android:id="@+id/btntime"/>
+                    android:id="@+id/btn_time"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -58,7 +57,7 @@
                 android:paddingBottom="50dp">
 
                 <EditText
-                    android:id="@+id/edtask"
+                    android:id="@+id/edt_ask"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -72,7 +71,7 @@
                     android:background="@drawable/bg_ask"/>
 
                 <TextView
-                    android:id="@+id/txtasknumber"
+                    android:id="@+id/txt_ask_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
@@ -88,38 +87,38 @@
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/caseA"
+                android:id="@+id/case_A"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
-                android:background="@drawable/btntl"
+                android:background="@drawable/btn_tl"
                 android:text="A"
                 android:textColor="@color/blue"/>
 
             <TextView
-                android:id="@+id/caseB"
+                android:id="@+id/case_B"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
-                android:background="@drawable/btntl"
+                android:background="@drawable/btn_tl"
                 android:text="B"
                 android:textColor="@color/blue"/>
 
             <TextView
-                android:id="@+id/caseC"
+                android:id="@+id/case_C"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
-                android:background="@drawable/btntl"
+                android:background="@drawable/btn_tl"
                 android:text="C"
                 android:textColor="@color/blue"/>
 
             <TextView
-                android:id="@+id/caseD"
+                android:id="@+id/case_D"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
-                android:background="@drawable/btntl"
+                android:background="@drawable/btn_tl"
                 android:text="D"
                 android:textColor="@color/blue"/>
 

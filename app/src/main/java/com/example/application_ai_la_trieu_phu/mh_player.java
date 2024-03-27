@@ -17,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class mh_player extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btnshowscore, btntime;
+    private Button btn_showscore, btn_time;
     private TextView Case[];
     private ImageButton btn_5050, btn_callfr, btn_audience, btn_change;
     private boolean isPlaying;
@@ -42,6 +42,10 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         isReady = false;
         Case = new TextView[4];
     }
+    public void listCauHoi(){
+        DialogListCauHoi dialogFragment = new DialogListCauHoi();
+        dialogFragment.show(getSupportFragmentManager(), "MyDialogFragment");
+    }
 
     private void setEvent() {
         for (TextView caseView : Case) {
@@ -51,11 +55,17 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         Case[1].setBackgroundResource(R.drawable.pngplayer_answer_background_selected);
         Case[2].setBackgroundResource(R.drawable.pngplayer_answer_background_true);
         Case[3].setBackgroundResource(R.drawable.pngplayer_answer_background_wrong);
-        btnshowscore.setOnClickListener(new View.OnClickListener() {
+        btn_showscore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent( );
                 startActivity(intent);
+            }
+        });
+        btn_showscore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listCauHoi();
             }
         });
 
@@ -86,7 +96,8 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         Case[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Case[0].setBackgroundResource(R.drawable.pngplayer_answer_background_selected);
+                Case[1].setText("Dap an chua biet dung sai");
             }
         });
         Case[2].setOnClickListener(new View.OnClickListener() {
@@ -105,13 +116,12 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
 
 
     private void findbyID(){
-        btnshowscore = (Button) findViewById(R.id.btnshowscore);
-        btntime = (Button) findViewById(R.id.btntime);
-        Case[0] = (TextView) findViewById(R.id.caseA);
-        Case[1] = (TextView) findViewById(R.id.caseB);
-        Case[2] = (TextView) findViewById(R.id.caseC);
-        Case[3] = (TextView) findViewById(R.id.caseD);
-
+        btn_showscore = (Button) findViewById(R.id.btn_showscore);
+        btn_time = (Button) findViewById(R.id.btn_time);
+        Case[0] = (TextView) findViewById(R.id.case_A);
+        Case[1] = (TextView) findViewById(R.id.case_B);
+        Case[2] = (TextView) findViewById(R.id.case_C);
+        Case[3] = (TextView) findViewById(R.id.case_D);
         btn_5050 = (ImageButton) findViewById(R.id.btn_5050);
         btn_callfr = (ImageButton) findViewById(R.id.btn_callfr);
         btn_audience = (ImageButton) findViewById(R.id.btn_audience);

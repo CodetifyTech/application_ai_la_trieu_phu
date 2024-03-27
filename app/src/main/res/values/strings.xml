@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">Application_Ai_la_trieu_phu</string>
+    <string name="app_name">Ai Là Triệu Phú</string>
+    <string name="huongdan">
+"Cách chơi:\n"
+                "- Mỗi lượt chơi, bạn sẽ phải vượt qua một loạt các câu hỏi với mức độ khó dần tăng.\n"
+                "- Mỗi câu hỏi có một mức giá thưởng tương ứng. Nếu bạn trả lời đúng, bạn sẽ nhận được số tiền tương ứng với câu hỏi đó.\n"
+                "- Nếu bạn trả lời sai câu hỏi nào đó, bạn sẽ mất một phần tiền đã kiếm được hoặc quay về mức giá thưởng an toàn gần nhất (nếu có).\n"
+                "- Nếu bạn trả lời đúng đủ câu hỏi, bạn sẽ trở thành triệu phú.\n"
+                "\n"
+                "Sự trợ giúp:\n"
+                "+ Tổ Tư Vấn Tại Chỗ: Máy tính sẽ mô phỏng ý kiến từ khán giả để giúp bạn chọn đáp án đúng.\n"
+                "+ Gọi điện thoại cho người thân: Bạn sẽ được mô phỏng cuộc trò chuyện với một người bạn và họ sẽ cố gắng giúp bạn chọn đáp án đúng.\n"
+                "+ Loại trừ hai phương án sai: Máy tính sẽ loại bỏ hai phương án sai, giúp bạn tập trung vào những phương án còn lại.\n"
+                 "+ Hỏi ý kiến khán giả : Hệ thống sẽ tính toán hiển thị % để hỗ trợ bạn.
+ </string>
+
+
 </resources>

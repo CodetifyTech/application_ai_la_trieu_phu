@@ -10,9 +10,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
 
 public class  MainActivity extends AppCompatActivity {
     Button btn_start, btn_hd;
@@ -35,12 +33,32 @@ public class  MainActivity extends AppCompatActivity {
         btn_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Bạn Đã Sẵn Sàng Đến Với Chương Trình Của Chúng Tôi", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,
+                        "Bạn Đã Sẵn Sàng Đến Với Chương Trình Của Chúng Tôi",
+                        Toast.LENGTH_SHORT).show();
 
             startGame();
             }
         });
 
+        btn_hd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                 //huongDan();
+                listCauHoi();
+            }
+        });
+
+    }
+
+    public void huongDan(){
+        DialogHuongDan dialogFragment = new DialogHuongDan();
+        dialogFragment.show(getSupportFragmentManager(), "myDialog");
+    }
+
+    public void listCauHoi(){
+        DialogListCauHoi dialogFragment = new DialogListCauHoi();
+        dialogFragment.show(getSupportFragmentManager(), "MyDialogFragment");
     }
 
     public void startGame(){

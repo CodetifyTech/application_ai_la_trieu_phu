@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/hinhnen_start"
+    android:background="@drawable/hinhnenbatdau"
     >
 
 
@@ -14,26 +14,25 @@
         android:id="@+id/btn_start"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="432dp"
+        android:text="Bắt Đầu"
+        android:textColor="@color/white"
+        android:background="@drawable/button_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/button_border"
-        android:text="Bắt Đầu"
-        android:textColor="#1F2544"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_hd"
         android:layout_width="150dp"
         android:layout_height="40dp"
         android:layout_marginTop="32dp"
-        android:background="@drawable/button_border"
         android:text="Hướng Dẫn"
+        android:textColor="@color/white"
+        android:background="@drawable/button_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        android:textColor="#1F2544"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_start" />
 

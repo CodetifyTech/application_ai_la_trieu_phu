@@ -5,7 +5,7 @@
     android:id="@+id/main2"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
-
+    android:background="@drawable/img"
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -140,7 +140,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="16dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn_call" />
+                android:background="@drawable/bg_5050" />
 
             <ImageButton
                 android:id="@+id/btn_callfr"
@@ -151,20 +151,20 @@
                 android:background="@drawable/btn_call" />
 
             <ImageButton
-                android:id="@+id/btn_askpl"
+                android:id="@+id/btn_audience"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="16dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn_call" />
+                android:background="@drawable/bg_audience" />
 
             <ImageButton
-                android:id="@+id/btn_advise"
+                android:id="@+id/btn_change"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="16dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn_call" />
+                android:background="@drawable/bg_change" />
 
 
         </TableRow>

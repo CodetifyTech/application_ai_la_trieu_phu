@@ -1,10 +1,13 @@
 package com.example.application_ai_la_trieu_phu;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +19,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
 
     private Button btnshowscore, btntime;
     private TextView Case[];
-    private ImageButton btn_5050, btn_callfr, btn_askpl, btn_advise;
+    private ImageButton btn_5050, btn_callfr, btn_audience, btn_change;
     private boolean isPlaying;
     private boolean isReady;
     @Override
@@ -48,6 +51,56 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         Case[1].setBackgroundResource(R.drawable.pngplayer_answer_background_selected);
         Case[2].setBackgroundResource(R.drawable.pngplayer_answer_background_true);
         Case[3].setBackgroundResource(R.drawable.pngplayer_answer_background_wrong);
+        btnshowscore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent( );
+                startActivity(intent);
+            }
+        });
+
+        btn_5050.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonOpenDialogClicked();
+            }
+        });
+        btn_callfr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonOpenDialogClicked2();
+            }
+        });
+        btn_audience.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonDialogClick3();
+            }
+        });
+        Case[0].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        Case[1].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        Case[2].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        Case[3].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
 
@@ -61,8 +114,8 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
 
         btn_5050 = (ImageButton) findViewById(R.id.btn_5050);
         btn_callfr = (ImageButton) findViewById(R.id.btn_callfr);
-        btn_askpl = (ImageButton) findViewById(R.id.btn_askpl);
-        btn_advise = (ImageButton) findViewById(R.id.btn_advise);
+        btn_audience = (ImageButton) findViewById(R.id.btn_audience);
+        btn_change = (ImageButton) findViewById(R.id.btn_change);
 
 
     }
@@ -72,4 +125,52 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         // Xử lý sự kiện click cho các Case (TextView)
     }
 
+    private void buttonOpenDialogClicked()  {
+
+        final CustomDialog5050 dialog = new CustomDialog5050(this);
+
+        dialog.show();
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                if (dialog.isButtonClicked()) {
+                    // User clicked OK
+                    btn_5050.setBackgroundResource(R.drawable.pngplayer_button_image_help_5050_x);
+                }
+            }
+        });
+    }
+
+    private void buttonOpenDialogClicked2()  {
+
+        final CustomDialogCallfr dialog = new CustomDialogCallfr(this);
+
+        dialog.show();
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                if (dialog.isButtonClicked()) {
+                    // User clicked OK
+                    btn_callfr.setBackgroundResource(R.drawable.pngplayer_button_image_help_call_x);
+                }
+            }
+        });
+    }
+
+    private void buttonDialogClick3(){
+        final CustomDialogAudience dialog = new CustomDialogAudience(this);
+
+        dialog.show();
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                if (dialog.isButtonClicked()) {
+                    // User clicked OK
+                    btn_audience.setBackgroundResource(R.drawable.pngplayer_button_image_help_audience_x);
+                }
+            }
+        });
+    }
 }

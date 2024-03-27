@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main2"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".mh_player"    android:background="@drawable/img">
+    tools:context=".mh_player"
+    android:background="@drawable/hinhnennnnnnn">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,8 +25,8 @@
 
             <Button
                 android:id="@+id/btn_showscore"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:background="@drawable/btn_archiverment" />
 
             <LinearLayout
@@ -35,8 +36,8 @@
                 android:gravity="end">
 
                 <Button
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:background="@drawable/btn_help"
                     android:text="60s"
                     android:id="@+id/btn_time"/>
@@ -57,7 +58,7 @@
                 android:paddingBottom="50dp">
 
                 <TextView
-                    android:id="@+id/edt_ask"
+                    android:id="@+id/txt_ask"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -65,8 +66,9 @@
                     android:paddingStart="10dp"
                     android:paddingTop="40dp"
                     android:paddingEnd="10dp"
+                    android:textColor="@color/white"
                     android:paddingBottom="40dp"
-                    android:text=""
+                    android:text="Câu hỏi "
                     android:textSize="20dp"
                     android:background="@drawable/bg_ask"/>
 
@@ -128,8 +130,8 @@
 
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center">
 

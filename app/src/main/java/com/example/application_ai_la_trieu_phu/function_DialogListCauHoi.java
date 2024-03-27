@@ -8,7 +8,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
-public class DialogListCauHoi extends DialogFragment {
+public class function_DialogListCauHoi extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

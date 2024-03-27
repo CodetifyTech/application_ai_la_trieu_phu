@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -69,7 +68,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         });
     }
     public void listCauHoi(){
-        DialogListCauHoi dialogFragment = new DialogListCauHoi();
+        function_DialogListCauHoi dialogFragment = new function_DialogListCauHoi();
         dialogFragment.show(getSupportFragmentManager(), "MyDialogFragment");
     }
 
@@ -164,7 +163,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
 
     private void buttonOpenDialogClicked()  {
 
-        final CustomDialog5050 dialog = new CustomDialog5050(this);
+        final function_CustomDialog5050 dialog = new function_CustomDialog5050(this);
 
         dialog.show();
 
@@ -181,7 +180,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
 
     private void buttonOpenDialogClicked2()  {
 
-        final CustomDialogCallfr dialog = new CustomDialogCallfr(this);
+        final function_CustomDialogCallfr dialog = new function_CustomDialogCallfr(this);
 
         dialog.show();
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -196,7 +195,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
     }
 
     private void buttonDialogClick3(){
-        final CustomDialogAudience dialog = new CustomDialogAudience(this);
+        final function_CustomDialogAudience dialog = new function_CustomDialogAudience(this);
 
         dialog.show();
 

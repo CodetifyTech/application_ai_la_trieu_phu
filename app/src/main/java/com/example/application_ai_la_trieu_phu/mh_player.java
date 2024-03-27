@@ -10,15 +10,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.Firebase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class mh_player extends AppCompatActivity implements View.OnClickListener {
 
     private Button btn_showscore, btn_time;
     private TextView Case[];
+    private TextView edt_ask;
     private ImageButton btn_5050, btn_callfr, btn_audience, btn_change;
     private boolean isPlaying;
     private boolean isReady;
@@ -41,6 +50,23 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         isPlaying = false;
         isReady = false;
         Case = new TextView[4];
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myref = database.getReference("myref");
+        Answers = new Answers();
+        //myref.setValue("Hello from khanh");
+
+        myref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String newvalue = snapshot.getValue(String.class);
+                edt_ask.setText(newvalue);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
     public void listCauHoi(){
         DialogListCauHoi dialogFragment = new DialogListCauHoi();
@@ -90,14 +116,14 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         Case[0].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Case[0].setBackgroundResource(R.drawable.pngplayer_answer_background_selected);
+                Case[0].setText("Dap an chua biet dung sai");
             }
         });
         Case[1].setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Case[0].setBackgroundResource(R.drawable.pngplayer_answer_background_selected);
-                Case[1].setText("Dap an chua biet dung sai");
+
             }
         });
         Case[2].setOnClickListener(new View.OnClickListener() {
@@ -126,6 +152,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         btn_callfr = (ImageButton) findViewById(R.id.btn_callfr);
         btn_audience = (ImageButton) findViewById(R.id.btn_audience);
         btn_change = (ImageButton) findViewById(R.id.btn_change);
+        edt_ask = (TextView) findViewById(R.id.edt_ask);
 
 
     }

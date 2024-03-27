@@ -2,10 +2,14 @@ package com.example.application_ai_la_trieu_phu;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -13,14 +17,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.example.application_ai_la_trieu_phu.tickclock.TimeCounter;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class mh_player extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btn_showscore, btn_time;
+    private ImageView btn_showscore;
+    private TextView txt_time;
     private TextView Case[];
     private ImageButton btn_5050, btn_callfr, btn_audience, btn_change;
     private boolean isPlaying;
     private boolean isReady;
+    private TimeCounter timeCounterLiveData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +47,49 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         first_activity();
         findbyID();
         setEvent();
+        executeTime();
     }
 
+    private void executeTime(){
+        timeCounterLiveData = new ViewModelProvider(this).get(TimeCounter.class);
+        timeCounterLiveData.timeRemaining().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                txt_time.setText(String.valueOf(integer));
+            }
+        });
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                // Perform background task here
+
+                while(timeCounterLiveData.getTime() > 0){
+                    // For example, let's simulate a long-running task
+                    try {
+                        Thread.sleep(1000); // Simulate a 3-second task
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    // Once the background task is done, update the UI using the Handler
+                    if(timeCounterLiveData.getTime() >0){
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                // Update UI here
+                                timeCounterLiveData.timeTick();
+                                // For example, update a TextView with the result
+                            }
+                        });
+                    }
+                }
+
+            }
+        });
+    }
     private void first_activity() {
         isPlaying = false;
         isReady = false;
@@ -115,8 +169,8 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
 
 
     private void findbyID(){
-        btn_showscore = (Button) findViewById(R.id.btn_showscore);
-        btn_time = (Button) findViewById(R.id.btn_time);
+        btn_showscore = (ImageView) findViewById(R.id.btn_showscore);
+        txt_time = (TextView) findViewById(R.id.btn_time);
         Case[0] = (TextView) findViewById(R.id.case_A);
         Case[1] = (TextView) findViewById(R.id.case_B);
         Case[2] = (TextView) findViewById(R.id.case_C);

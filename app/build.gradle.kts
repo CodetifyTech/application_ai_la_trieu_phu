@@ -7,6 +7,10 @@ android {
     namespace = "com.example.application_ai_la_trieu_phu"
     compileSdk = 34
 
+    buildFeatures{
+        dataBinding = true
+        viewBinding = true
+    }
     defaultConfig {
         applicationId = "com.example.application_ai_la_trieu_phu"
         minSdk = 24

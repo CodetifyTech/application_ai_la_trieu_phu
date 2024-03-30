@@ -39,6 +39,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
     private ImageButton btn_5050, btn_callfr, btn_audience, btn_change;
     private boolean isPlaying;
     private boolean isReady;
+    private boolean help1Ready , help2Ready, help3Ready, help4Ready;
     private int currentQuestionIndex = 0;
     private DatabaseReference mDatabase;
     private List<function_Questions> randomQuestions;
@@ -65,7 +66,10 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
     private void first_activity() {
         isPlaying = false;
         isReady = false;
-
+        help1Ready = true;
+        help2Ready = true;
+        help3Ready =true;
+        help4Ready = true;
     }
 
     public void listCauHoi() {
@@ -86,19 +90,29 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         btn_5050.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonOpenDialogClicked();
+                onPause();
+                buttonOpenDialog5050();
             }
         });
         btn_callfr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonOpenDialogClicked2();
+                onPause();
+                buttonOpenDialogCallfr();
             }
         });
         btn_audience.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonDialogClick3();
+                onPause();
+                buttonDialogAudience();
+            }
+        });
+        btn_change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onPause();
+                buttonDialogChange();
             }
         });
         call_firebase();
@@ -152,7 +166,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
                     questionList.add(question);
                 }
 
-                randomQuestions = getRandomQuestions(questionList, 15);
+                randomQuestions = getRandomQuestions(questionList, 16);
 
                 // Hiển thị câu hỏi đầu tiên
                 showQuestion(currentQuestionIndex);
@@ -184,7 +198,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         } else {
             Log.e("check", "index income saii.");
         }
-        if (questionIndex >= 0 && questionIndex < randomQuestions.size()) {
+        if (questionIndex >= 0 && questionIndex < 15) {
             function_Questions question = randomQuestions.get(questionIndex);
             txtQuestion.setText(question.quest);
             btnAnswer1.setText(question.list.get(0).answers);
@@ -200,7 +214,6 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             remainingTime = 30000; // 30 giây
             stopTimer();
             startTimer();
-
         }
     }
 
@@ -257,10 +270,19 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         }, 3000); // hold 3s after setdrawable true or false
     }
 
+    private void setEnableHelp(){
+        if(help1Ready) btn_5050.setEnabled(true);
+        else btn_5050.setEnabled(false);
+        if(help2Ready) btn_callfr.setEnabled(true);
+        else btn_callfr.setEnabled(false);
+        if(help3Ready) btn_audience.setEnabled(true);
+        else btn_audience.setEnabled(false);
+        if(help4Ready) btn_change.setEnabled(true);
+        else btn_change.setEnabled(false);
+    }
 
 
-
-    private void buttonOpenDialogClicked() {
+    private void buttonOpenDialog5050() {
 
         final function_CustomDialog5050 dialog = new function_CustomDialog5050(this);
 
@@ -270,14 +292,16 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
                 if (dialog.isButtonClicked()) {
-                    // User clicked OK
-                    btn_5050.setBackgroundResource(R.drawable.pngplayer_button_image_help_5050_x);
+                    startTimer();
+                    setAnswerButtonDrawable(btn_5050, R.drawable.pngplayer_button_image_help_5050_x);
+                    help1Ready = false;
+                    setEnableHelp();
                 }
             }
         });
     }
 
-    private void buttonOpenDialogClicked2() {
+    private void buttonOpenDialogCallfr() {
 
         final function_CustomDialogCallfr dialog = new function_CustomDialogCallfr(this);
 
@@ -286,14 +310,16 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
                 if (dialog.isButtonClicked()) {
-                    // User clicked OK
-                    btn_callfr.setBackgroundResource(R.drawable.pngplayer_button_image_help_call_x);
+                    startTimer();
+                    setAnswerButtonDrawable(btn_callfr, R.drawable.pngplayer_button_image_help_call_x);
+                    help2Ready = false;
+                    setEnableHelp();
                 }
             }
         });
     }
 
-    private void buttonDialogClick3() {
+    private void buttonDialogAudience() {
         final function_CustomDialogAudience dialog = new function_CustomDialogAudience(this);
 
         dialog.show();
@@ -302,12 +328,25 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
                 if (dialog.isButtonClicked()) {
-                    // User clicked OK
-                    btn_audience.setBackgroundResource(R.drawable.pngplayer_button_image_help_audience_x);
+                    startTimer();
+                    setAnswerButtonDrawable(btn_audience, R.drawable.pngplayer_button_image_help_audience_x);
+                    help3Ready = false;
+                    setEnableHelp();
                 }
             }
         });
     }
+    private void buttonDialogChange() {
+        help4Ready = false;
+        setEnableHelp();
+    }
+
+
+
+
+
+
+    // cac method phu...
     private void back_tomhstart() {
         Intent intent = new Intent(mh_player.this, mh_start.class);
         startActivity(intent);
@@ -327,6 +366,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
                 Toast.makeText(mh_player.this, "TIME OUT", Toast.LENGTH_SHORT).show();
                 back_tomhstart();
             }
+
         }.start();
     }
     private void stopTimer() {
@@ -334,27 +374,16 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             countDownTimer.cancel();
         }
     }
+    protected void onPause() {
+        super.onPause();
+        stopTimer(); // Dừng bộ đếm thời gian khi activity bị pause
+    }
     private void setAnswerButtonDrawable(Button button, int drawableResource) {
         button.setBackgroundResource(drawableResource);
     }
-//    private void setAnswerButtonDrawable(int index, int drawableResource) {
-//        switch (index) {
-//            case 0:
-//                btnAnswer1.setBackgroundResource(drawableResource);
-//                break;
-//            case 1:
-//                btnAnswer2.setBackgroundResource(drawableResource);
-//                break;
-//            case 2:
-//                btnAnswer3.setBackgroundResource(drawableResource);
-//                break;
-//            case 3:
-//                btnAnswer4.setBackgroundResource(drawableResource);
-//                break;
-//            default:
-//                break;
-//        }
-//    }
+    private void setAnswerButtonDrawable(ImageButton button, int drawableResource) {
+        button.setBackgroundResource(drawableResource);
+    }
     private void findbyID() {
         btn_showscore = (Button) findViewById(R.id.btn_showscore);
         btn_time = (Button) findViewById(R.id.btn_time);

@@ -68,7 +68,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         pickAnswerReady = true;
         help1Ready = true;
         help2Ready = true;
-        help3Ready =true;
+        help3Ready = true;
         help4Ready = true;
     }
 

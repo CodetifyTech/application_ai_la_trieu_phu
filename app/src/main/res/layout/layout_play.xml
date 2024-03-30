@@ -57,6 +57,7 @@
                 android:paddingTop="50dp"
                 android:paddingBottom="50dp">
 
+
                 <TextView
                     android:id="@+id/txtQuestion"
                     android:layout_width="match_parent"

@@ -43,6 +43,8 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
     private int currentQuestionIndex = 0;
     private DatabaseReference mDatabase;
     private List<function_Questions> randomQuestions;
+    private function_Questions currentQuestion;
+    private function_Answers selectedAnswer;
     private List<function_Questions> questionList = new ArrayList<>();
     private CountDownTimer countDownTimer;
     private long defaultTime = 30000; // 30 giây
@@ -61,6 +63,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         first_activity();
         findbyID();
         setEvent();
+        call_firebase();
     }
 
     private void first_activity() {
@@ -70,6 +73,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         help2Ready = true;
         help3Ready = true;
         help4Ready = true;
+
     }
 
     public void listCauHoi() {
@@ -78,8 +82,6 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
     }
 
     private void setEvent() {
-
-
         btn_showscore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,7 +117,6 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
                 buttonDialogChange();
             }
         });
-        call_firebase();
         // ivent 4 button
         btnAnswer1.setOnClickListener(buttonClickListener);
         btnAnswer2.setOnClickListener(buttonClickListener);
@@ -141,47 +142,41 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
     private void call_firebase() {
         // create DatabaseReference
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
         // read Firebase
         mDatabase.child("Questions").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //loop get all cau hoi
-                for (DataSnapshot questionSnapshot : dataSnapshot.getChildren()) {
-                    function_Questions question = new function_Questions();
-                    question.quest = questionSnapshot.child("quest").getValue(String.class);
-
-                    List<function_Answers> answerList = new ArrayList<>();
-
-                    // loop get all cau tra loi
-                    for (DataSnapshot answerSnapshot : questionSnapshot.child("listanswer").getChildren()) {
-                        function_Answers answer = new function_Answers();
-                        answer.answers = answerSnapshot.child("answer").getValue(String.class);
-                        Boolean checkValue = answerSnapshot.child("check").getValue(Boolean.class);
-                        boolean check = (checkValue != null) ? checkValue.booleanValue() : false; // check null ?
-
-                        answer.check = check;
-                        answerList.add(answer);
-                    }
-                    question.list = answerList;
-                    questionList.add(question);
-                }
-
-                randomQuestions = getRandomQuestions(questionList, 16);
-
-                // Hiển thị câu hỏi đầu tiên
+                loadQuestions(dataSnapshot);
                 showQuestion(currentQuestionIndex);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // log error
                 Log.e("Firebase", "Error: " + databaseError.getMessage());
             }
         });
     }
+    private void loadQuestions(DataSnapshot dataSnapshot) {
+        questionList.clear();
+        for (DataSnapshot questionSnapshot : dataSnapshot.getChildren()) {
+            function_Questions question = new function_Questions();
+            question.quest = questionSnapshot.child("quest").getValue(String.class);
 
+            List<function_Answers> answerList = new ArrayList<>();
+            // loop get all answers
+            for (DataSnapshot answerSnapshot : questionSnapshot.child("listanswer").getChildren()) {
+                function_Answers answer = new function_Answers();
+                answer.answers = answerSnapshot.child("answer").getValue(String.class);
+                Boolean checkValue = answerSnapshot.child("check").getValue(Boolean.class);
+                boolean check = (checkValue != null) ? checkValue.booleanValue() : false; // check null ?
 
+                answer.check = check;
+                answerList.add(answer);
+            }
+            question.list = answerList;
+            questionList.add(question);
+        }
+        randomQuestions = getRandomQuestions(questionList, 16);
+    }
 
     private int getIndexByButton(Button button) {
         if (button == btnAnswer1) return 0;
@@ -190,11 +185,27 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         if (button == btnAnswer4) return 3;
         return -1;
     }
+    private Button getButtonByIndex(int index) {
+        switch (index) {
+            case 0:
+                return btnAnswer1;
+            case 1:
+                return btnAnswer2;
+            case 2:
+                return btnAnswer3;
+            case 3:
+                return btnAnswer4;
+            default:
+                return null;
+        }
+    }
     // display quest
     private void showQuestion(int questionIndex) {
         Log.d("check", "Cau hoi hien tai: " + currentQuestionIndex);
         Log.d("check", "So cau hoi: " + randomQuestions.size());
-        if (questionIndex >= 0 && questionIndex < randomQuestions.size()) {
+        if(currentQuestionIndex==0)setEnableAllHelp(false);
+        else setEnableHelp();
+        if (questionIndex >= 0 && questionIndex < 15) {
             Log.e("check", "index income dung.");
         } else {
             Log.e("check", "index income saii.");
@@ -215,7 +226,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             remainingTime = 30000; // 30 giây
             stopTimer();
             startTimer();
-            setEnableHelp();
+
         }
     }
 
@@ -233,12 +244,12 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         Collections.shuffle(randomQuestions, random);
         return randomQuestions.subList(0, count);
     }
-
     private void checkAnswer(Button selectedAnswerIndex) {
         int index = getIndexByButton(selectedAnswerIndex);
         setAnswerButtonDrawable(selectedAnswerIndex, R.drawable.pngplayer_answer_background_selected);
-        function_Questions currentQuestion = randomQuestions.get(currentQuestionIndex);
-        function_Answers selectedAnswer = currentQuestion.list.get(index);
+
+        currentQuestion = randomQuestions.get(currentQuestionIndex);
+        selectedAnswer = currentQuestion.list.get(index);
         Log.d("check", "checkanswer active"+index);
 
         new Handler().postDelayed(new Runnable() {
@@ -261,123 +272,126 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
                         currentQuestionIndex++;
                         if (currentQuestionIndex < randomQuestions.size()) {
                             showQuestion(currentQuestionIndex);
-                            setEnableAllAnswer();
+                            setEnableHelp();
                         } else {
                             Toast.makeText(mh_player.this, "Bạn đã hoàn thành tất cả câu hỏi!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, 3000); //  hold 3s after setdrawable selected
             }
-
-
         }, 3000); // hold 3s after setdrawable true or false
-    }
-
-    private void setEnableHelp(){
-        if(help1Ready) btn_5050.setEnabled(true);
-        else btn_5050.setEnabled(false);
-        if(help2Ready) btn_callfr.setEnabled(true);
-        else btn_callfr.setEnabled(false);
-        if(help3Ready) btn_audience.setEnabled(true);
-        else btn_audience.setEnabled(false);
-        if(help4Ready) btn_change.setEnabled(true);
-        else btn_change.setEnabled(false);
-    }
-    private void setUnnableAllHelp(){
-        btn_5050.setEnabled(false);
-        btn_callfr.setEnabled(false);
-        btn_audience.setEnabled(false);
-        btn_change.setEnabled(false);
-    }
-    private  void setEnableAnswerSelected(Button selectedAnswerIndex){
-        int index = getIndexByButton(selectedAnswerIndex);
-        Log.d("Check index button", "setEnableAnswer: "+index);
-        if (index==0){
-            btnAnswer2.setEnabled(false);
-            btnAnswer3.setEnabled(false);
-            btnAnswer4.setEnabled(false);
-            setUnnableAllHelp();
-        }
-        if (index==1){
-            btnAnswer1.setEnabled(false);
-            btnAnswer3.setEnabled(false);
-            btnAnswer4.setEnabled(false);
-            setUnnableAllHelp();
-        }
-        if (index==2){
-            btnAnswer1.setEnabled(false);
-            btnAnswer2.setEnabled(false);
-            btnAnswer4.setEnabled(false);
-            setUnnableAllHelp();
-        }
-        if (index==3){
-            btnAnswer1.setEnabled(false);
-            btnAnswer2.setEnabled(false);
-            btnAnswer3.setEnabled(false);
-            setUnnableAllHelp();
-        }
-    }
-    private void setEnableAllAnswer(){
-        btnAnswer1.setEnabled(true);
-        btnAnswer2.setEnabled(true);
-        btnAnswer3.setEnabled(true);
-        btnAnswer4.setEnabled(true);
     }
 
 
     private void buttonOpenDialog5050() {
-
         final function_CustomDialog5050 dialog = new function_CustomDialog5050(this);
-
         dialog.show();
-
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
                 if (dialog.isButtonClicked()) {
                     setAnswerButtonDrawable(btn_5050, R.drawable.pngplayer_button_image_help_5050_x);
+                    ivent5050();
                     help1Ready = false;
+                    setEnableHelp();
+                    setEnableAllHelp(false);
                 }
                 startTimer();
             }
         });
     }
-
+    private void ivent5050(){
+        if (currentQuestionIndex != 0) {
+            List<Integer> wrongIndexes = new ArrayList<>();
+            for (int i = 0; i < currentQuestion.list.size(); i++) {
+                function_Answers answer = currentQuestion.list.get(i);
+                if (!answer.check) {
+                    wrongIndexes.add(i);
+                }
+            }
+            Collections.shuffle(wrongIndexes);
+            int index1 = wrongIndexes.get(0);
+            int index2 = wrongIndexes.get(1);
+            setAnswerButtonDrawable(getButtonByIndex(index1),R.drawable.pngplayer_answer_background_hide); getButtonByIndex(index1).setText(" "); getButtonByIndex(index1).setEnabled(false);
+            setAnswerButtonDrawable(getButtonByIndex(index2),R.drawable.pngplayer_answer_background_hide); getButtonByIndex(index2).setText(" "); getButtonByIndex(index2).setEnabled(false);
+        }
+    }
     private void buttonOpenDialogCallfr() {
-
         final function_CustomDialogCallfr dialog = new function_CustomDialogCallfr(this);
-
         dialog.show();
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
                 if (dialog.isButtonClicked()) {
                     setAnswerButtonDrawable(btn_callfr, R.drawable.pngplayer_button_image_help_call_x);
+                    iventCallfr();
                     help2Ready = false;
+                    setEnableHelp();
+                    setEnableAllHelp(false);
                 }
                 startTimer();
             }
         });
     }
 
+    private void iventCallfr() {
+        for (int i = 0; i < currentQuestion.list.size(); i++) {
+            function_Answers answer = currentQuestion.list.get(i);
+            if (answer.check) {
+                Toast.makeText(this, "Bạn của bạn đã trợ giúp với đáp án là: "+answer.getanswers(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     private void buttonDialogAudience() {
         final function_CustomDialogAudience dialog = new function_CustomDialogAudience(this);
-
         dialog.show();
-
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
                 if (dialog.isButtonClicked()) {
                     setAnswerButtonDrawable(btn_audience, R.drawable.pngplayer_button_image_help_audience_x);
+                    iventAudience();
                     help3Ready = false;
+                    setEnableHelp();
+                    setEnableAllHelp(false);
                 }
                 startTimer();
             }
         });
     }
+
+    private void iventAudience() {
+
+        Toast.makeText(this, ""+Audience(1)+" "+getRandomAnswer(true),Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, ""+Audience(2)+" "+getRandomAnswer(true),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, ""+Audience(3)+" "+getRandomAnswer(false),Toast.LENGTH_SHORT).show();
+
+    }
+    private String getRandomAnswer(boolean isCorrect) {
+        List<function_Answers> answers = new ArrayList<>();
+        for (function_Answers answer : currentQuestion.list) {
+            if (answer.check == isCorrect) {
+                answers.add(answer);
+            }
+        }
+        if (!answers.isEmpty()) {
+            return answers.get(0).answers;
+        } else {
+            return "";
+        }
+    }
+    private String Audience(int index){
+        if (index ==0) return "Đáp án đúng theo tôi là: ";
+        if (index ==1) return "Tôi nghĩ đáp án đúng là: ";
+        if (index ==2) return "Chắc chắc là đáp án: ";
+        if (index ==3) return "Tin tôi đi đáp án đúng là: ";
+        return null;
+    }
     private void buttonDialogChange() {
         help4Ready = false;
+        setEnableHelp();
+        setEnableAllHelp(false);
     }
 
 
@@ -421,6 +435,56 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
     }
     private void setAnswerButtonDrawable(ImageButton button, int drawableResource) {
         button.setBackgroundResource(drawableResource);
+    }
+    private void setEnableHelp(){
+        if(help1Ready) btn_5050.setEnabled(true);
+        else btn_5050.setEnabled(false);
+        if(help2Ready) btn_callfr.setEnabled(true);
+        else btn_callfr.setEnabled(false);
+        if(help3Ready) btn_audience.setEnabled(true);
+        else btn_audience.setEnabled(false);
+        if(help4Ready) btn_change.setEnabled(true);
+        else btn_change.setEnabled(false);
+    }
+    private void setEnableAllHelp(boolean temp){
+        btn_5050.setEnabled(temp);
+        btn_callfr.setEnabled(temp);
+        btn_audience.setEnabled(temp);
+        btn_change.setEnabled(temp);
+    }
+    private  void setEnableAnswerSelected(Button selectedAnswerIndex){
+        int index = getIndexByButton(selectedAnswerIndex);
+        Log.d("Check index button", "setEnableAnswer: "+index);
+        if (index==0){
+            btnAnswer2.setEnabled(false);
+            btnAnswer3.setEnabled(false);
+            btnAnswer4.setEnabled(false);
+            setEnableAllHelp(false);
+        }
+        if (index==1){
+            btnAnswer1.setEnabled(false);
+            btnAnswer3.setEnabled(false);
+            btnAnswer4.setEnabled(false);
+            setEnableAllHelp(false);
+        }
+        if (index==2){
+            btnAnswer1.setEnabled(false);
+            btnAnswer2.setEnabled(false);
+            btnAnswer4.setEnabled(false);
+            setEnableAllHelp(false);
+        }
+        if (index==3){
+            btnAnswer1.setEnabled(false);
+            btnAnswer2.setEnabled(false);
+            btnAnswer3.setEnabled(false);
+            setEnableAllHelp(false);
+        }
+    }
+    private void setEnableAllAnswer(boolean temp){
+        btnAnswer1.setEnabled(temp);
+        btnAnswer2.setEnabled(temp);
+        btnAnswer3.setEnabled(temp);
+        btnAnswer4.setEnabled(temp);
     }
     private void findbyID() {
         btn_showscore = (Button) findViewById(R.id.btn_showscore);

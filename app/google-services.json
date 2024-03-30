@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "297106196061",
-    "project_id": "fir-demo-app-6dac5",
-    "storage_bucket": "fir-demo-app-6dac5.appspot.com"
+    "project_number": "138750680495",
+    "project_id": "totemic-arcana-418509",
+    "storage_bucket": "totemic-arcana-418509.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:297106196061:android:cb71340a29348ac682efb4",
+        "mobilesdk_app_id": "1:138750680495:android:ad7b0d398d8fa9eaa3635a",
         "android_client_info": {
           "package_name": "com.example.application_ai_la_trieu_phu"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCjPTvXBA5MZbVK29PayQJRAI9p-1KL3dQ"
+          "current_key": "AIzaSyBVv12ifMGg2nHUIFIUwLYeNVZfL4M6eT0"
         }
       ],
       "services": {

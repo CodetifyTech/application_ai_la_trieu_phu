@@ -58,19 +58,19 @@
                 android:paddingBottom="50dp">
 
                 <TextView
-                    android:id="@+id/txt_ask"
+                    android:id="@+id/txtQuestion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_ask"
                     android:gravity="center"
                     android:paddingStart="10dp"
                     android:paddingTop="40dp"
                     android:paddingEnd="10dp"
-                    android:textColor="@color/white"
                     android:paddingBottom="40dp"
                     android:text="Câu hỏi "
-                    android:textSize="20dp"
-                    android:background="@drawable/bg_ask"/>
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
 
                 <TextView
                     android:id="@+id/txt_ask_number"
@@ -88,8 +88,8 @@
 
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/case_A"
+            <Button
+                android:id="@+id/btn_Answer1"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
@@ -97,8 +97,8 @@
                 android:text="A"
                 android:textColor="@color/blue"/>
 
-            <TextView
-                android:id="@+id/case_B"
+            <Button
+                android:id="@+id/btn_Answer2"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
@@ -106,8 +106,8 @@
                 android:text="B"
                 android:textColor="@color/blue"/>
 
-            <TextView
-                android:id="@+id/case_C"
+            <Button
+                android:id="@+id/btn_Answer3"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"
@@ -115,8 +115,8 @@
                 android:text="C"
                 android:textColor="@color/blue"/>
 
-            <TextView
-                android:id="@+id/case_D"
+            <Button
+                android:id="@+id/btn_Answer4"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center"

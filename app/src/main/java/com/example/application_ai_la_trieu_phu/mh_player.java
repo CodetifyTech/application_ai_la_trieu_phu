@@ -215,6 +215,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             remainingTime = 30000; // 30 giây
             stopTimer();
             startTimer();
+            setEnableHelp();
         }
     }
 
@@ -282,6 +283,12 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         if(help4Ready) btn_change.setEnabled(true);
         else btn_change.setEnabled(false);
     }
+    private void setUnnableAllHelp(){
+        btn_5050.setEnabled(false);
+        btn_callfr.setEnabled(false);
+        btn_audience.setEnabled(false);
+        btn_change.setEnabled(false);
+    }
     private  void setEnableAnswerSelected(Button selectedAnswerIndex){
         int index = getIndexByButton(selectedAnswerIndex);
         Log.d("Check index button", "setEnableAnswer: "+index);
@@ -289,21 +296,25 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             btnAnswer2.setEnabled(false);
             btnAnswer3.setEnabled(false);
             btnAnswer4.setEnabled(false);
+            setUnnableAllHelp();
         }
         if (index==1){
             btnAnswer1.setEnabled(false);
             btnAnswer3.setEnabled(false);
             btnAnswer4.setEnabled(false);
+            setUnnableAllHelp();
         }
         if (index==2){
             btnAnswer1.setEnabled(false);
             btnAnswer2.setEnabled(false);
             btnAnswer4.setEnabled(false);
+            setUnnableAllHelp();
         }
         if (index==3){
             btnAnswer1.setEnabled(false);
             btnAnswer2.setEnabled(false);
             btnAnswer3.setEnabled(false);
+            setUnnableAllHelp();
         }
     }
     private void setEnableAllAnswer(){
@@ -324,11 +335,10 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
                 if (dialog.isButtonClicked()) {
-                    startTimer();
                     setAnswerButtonDrawable(btn_5050, R.drawable.pngplayer_button_image_help_5050_x);
                     help1Ready = false;
-                    setEnableHelp();
                 }
+                startTimer();
             }
         });
     }
@@ -342,11 +352,10 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
                 if (dialog.isButtonClicked()) {
-                    startTimer();
                     setAnswerButtonDrawable(btn_callfr, R.drawable.pngplayer_button_image_help_call_x);
                     help2Ready = false;
-                    setEnableHelp();
                 }
+                startTimer();
             }
         });
     }
@@ -360,17 +369,15 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
                 if (dialog.isButtonClicked()) {
-                    startTimer();
                     setAnswerButtonDrawable(btn_audience, R.drawable.pngplayer_button_image_help_audience_x);
                     help3Ready = false;
-                    setEnableHelp();
                 }
+                startTimer();
             }
         });
     }
     private void buttonDialogChange() {
         help4Ready = false;
-        setEnableHelp();
     }
 
 

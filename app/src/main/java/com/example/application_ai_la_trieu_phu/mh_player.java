@@ -38,7 +38,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
     private TextView txtQuestion;
     private ImageButton btn_5050, btn_callfr, btn_audience, btn_change;
     private boolean isPlaying;
-    private boolean isReady;
+    private boolean pickAnswerReady;
     private boolean help1Ready , help2Ready, help3Ready, help4Ready;
     private int currentQuestionIndex = 0;
     private DatabaseReference mDatabase;
@@ -65,7 +65,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
 
     private void first_activity() {
         isPlaying = false;
-        isReady = false;
+        pickAnswerReady = true;
         help1Ready = true;
         help2Ready = true;
         help3Ready =true;
@@ -130,6 +130,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             if (v instanceof Button) {
                 Button selectedButton = (Button) v;
                 checkAnswer(selectedButton);
+                setEnableAnswerSelected(selectedButton);
             }
         }
     };
@@ -237,7 +238,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         setAnswerButtonDrawable(selectedAnswerIndex, R.drawable.pngplayer_answer_background_selected);
         function_Questions currentQuestion = randomQuestions.get(currentQuestionIndex);
         function_Answers selectedAnswer = currentQuestion.list.get(index);
-        Log.d("check", "checkanswer active");
+        Log.d("check", "checkanswer active"+index);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -259,6 +260,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
                         currentQuestionIndex++;
                         if (currentQuestionIndex < randomQuestions.size()) {
                             showQuestion(currentQuestionIndex);
+                            setEnableAllAnswer();
                         } else {
                             Toast.makeText(mh_player.this, "Bạn đã hoàn thành tất cả câu hỏi!", Toast.LENGTH_SHORT).show();
                         }
@@ -279,6 +281,36 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         else btn_audience.setEnabled(false);
         if(help4Ready) btn_change.setEnabled(true);
         else btn_change.setEnabled(false);
+    }
+    private  void setEnableAnswerSelected(Button selectedAnswerIndex){
+        int index = getIndexByButton(selectedAnswerIndex);
+        Log.d("Check index button", "setEnableAnswer: "+index);
+        if (index==0){
+            btnAnswer2.setEnabled(false);
+            btnAnswer3.setEnabled(false);
+            btnAnswer4.setEnabled(false);
+        }
+        if (index==1){
+            btnAnswer1.setEnabled(false);
+            btnAnswer3.setEnabled(false);
+            btnAnswer4.setEnabled(false);
+        }
+        if (index==2){
+            btnAnswer1.setEnabled(false);
+            btnAnswer2.setEnabled(false);
+            btnAnswer4.setEnabled(false);
+        }
+        if (index==3){
+            btnAnswer1.setEnabled(false);
+            btnAnswer2.setEnabled(false);
+            btnAnswer3.setEnabled(false);
+        }
+    }
+    private void setEnableAllAnswer(){
+        btnAnswer1.setEnabled(true);
+        btnAnswer2.setEnabled(true);
+        btnAnswer3.setEnabled(true);
+        btnAnswer4.setEnabled(true);
     }
 
 
@@ -362,7 +394,6 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
 
             @Override
             public void onFinish() {
-                // Xử lý khi hết thời gian
                 Toast.makeText(mh_player.this, "TIME OUT", Toast.LENGTH_SHORT).show();
                 back_tomhstart();
             }

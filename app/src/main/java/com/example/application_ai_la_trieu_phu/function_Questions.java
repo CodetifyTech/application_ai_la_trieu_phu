@@ -3,39 +3,34 @@ package com.example.application_ai_la_trieu_phu;
 import java.util.List;
 
 public class function_Questions {
-    private int numberkey;
-    private String Question;
 
-    public List<function_Answers> listanswers;
+    public String quest;
 
-    public function_Questions(int numberkey, String question, List<function_Answers> listanswers) {
-        this.numberkey = numberkey;
-        Question = question;
-        this.listanswers = listanswers;
+    public List<function_Answers> list;
+
+    public function_Questions( String quest, List<function_Answers> list) {
+        quest = quest;
+        this.list = list;
+    }
+
+    public function_Questions() {
+
     }
 
 
-    public int getNumberkey() {
-        return numberkey;
+    public String getquest() {
+        return quest;
     }
 
-    public void setNumberkey(int numberkey) {
-        this.numberkey = numberkey;
+    public void setquest(String question) {
+        quest = question;
     }
 
-    public String getQuestion() {
-        return Question;
+    public List<function_Answers> getList() {
+        return list;
     }
 
-    public void setQuestion(String question) {
-        Question = question;
-    }
-
-    public List<function_Answers> getListanswers() {
-        return listanswers;
-    }
-
-    public void setListanswers(List<function_Answers> listanswers) {
-        this.listanswers = listanswers;
+    public void setList(List<function_Answers> list) {
+        this.list = list;
     }
 }

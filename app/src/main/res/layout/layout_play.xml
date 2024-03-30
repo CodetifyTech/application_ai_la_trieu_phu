@@ -1,203 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-
-
-    <data>
-
-
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main2"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".mh_player"
+    android:background="@drawable/hinhnennnnnnn">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/main2"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".mh_player"
-        android:background="@drawable/hinhnennnnnnn">
+        android:orientation="vertical"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="1000"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            >
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_showscore"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/btn_archiverment" />
 
             <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end">
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="@drawable/btn_help"
+                    android:text="60s"
+                    android:id="@+id/btn_time"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical">
+
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_weight="100">
+                android:paddingTop="50dp"
+                android:paddingBottom="50dp">
 
-                <ImageView
-                    android:id="@+id/btn_showscore"
-                    android:layout_width="180dp"
-                    android:layout_gravity="center|start"
-                    android:layout_height="100dp"
-                    android:background="@drawable/btn_archiverment" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/txtQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_ask"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:paddingTop="40dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="40dp"
+                    android:text="Câu hỏi "
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/txt_ask_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:gravity="end">
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/keynumberask"
+                    android:paddingStart="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="10dp"
+                    android:text="Cau 1"
+                    android:textSize="15dp"
+                    />
 
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:background="@drawable/btn_help"
-                        android:textSize="26sp"
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:textColor="@color/white"
-                        android:id="@+id/btn_time"/>
-                </LinearLayout>
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
+            <Button
+                android:id="@+id/btn_Answer1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="800"
-                android:weightSum="1000"
-                android:layout_gravity="center"
-                android:orientation="vertical">
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:background="@drawable/btn_tl"
+                android:text="A"
+                android:textColor="@color/blue"/>
 
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="50dp"
-                    android:gravity="top"
-                    android:layout_weight="100"
-                    android:layout_gravity="top"
-                    android:paddingBottom="50dp">
-
-                    <TextView
-                        android:id="@+id/txt_ask"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:gravity="center"
-                        android:paddingStart="10dp"
-                        android:paddingTop="40dp"
-                        android:paddingEnd="10dp"
-                        android:textColor="@color/white"
-                        android:paddingBottom="40dp"
-                        android:text="Câu hỏi "
-                        android:textStyle="bold"
-                        android:textSize="20dp"
-                        android:background="@drawable/bg_ask"/>
-                    <TextView
-                        android:id="@+id/txt_ask_number"
-                        android:layout_width="match_parent"
-                        android:textAlignment="center"
-                        android:layout_marginStart="100dp"
-                        android:layout_marginEnd="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:background="@drawable/keynumberask"
-                        android:paddingStart="20dp"
-                        android:paddingTop="10dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
-                        android:paddingEnd="20dp"
-                        android:paddingBottom="10dp"
-                        android:text="Câu 1"
-                        android:textSize="15dp"
-                        />
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/case_A"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:gravity="center"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:background="@drawable/btn_tl"
-                    android:text="A"
-                    android:layout_weight="100"
-                    android:textColor="@color/blue"/>
-
-                <TextView
-                    android:id="@+id/case_B"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:gravity="center"
-                    android:background="@drawable/btn_tl"
-                    android:text="B"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_weight="100"
-                    android:textColor="@color/blue"/>
-
-                <TextView
-                    android:id="@+id/case_C"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:gravity="center"
-                    android:background="@drawable/btn_tl"
-                    android:text="C"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_weight="100"
-                    android:textColor="@color/blue"/>
-
-                <TextView
-                    android:id="@+id/case_D"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:gravity="center"
-                    android:background="@drawable/btn_tl"
-                    android:text="D"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_weight="100"
-                    android:textColor="@color/blue"/>
-            </LinearLayout>
-            <TableRow
+            <Button
+                android:id="@+id/btn_Answer2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="100"
-                android:weightSum="4"
-                android:gravity="center">
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:background="@drawable/btn_tl"
+                android:text="B"
+                android:textColor="@color/blue"/>
 
-                <ImageButton
-                    android:id="@+id/btn_5050"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="8dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_5050" />
+            <Button
+                android:id="@+id/btn_Answer3"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:background="@drawable/btn_tl"
+                android:text="C"
+                android:textColor="@color/blue"/>
 
-                <ImageButton
-                    android:id="@+id/btn_callfr"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="8dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_call" />
+            <Button
+                android:id="@+id/btn_Answer4"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:background="@drawable/btn_tl"
+                android:text="D"
+                android:textColor="@color/blue"/>
 
-                <ImageButton
-                    android:id="@+id/btn_audience"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="8dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_audience" />
 
-                <ImageButton
-                    android:id="@+id/btn_change"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="8dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_change" />
-            </TableRow>
         </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+
+
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/btn_5050"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_5050" />
+
+            <ImageButton
+                android:id="@+id/btn_callfr"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_call" />
+
+            <ImageButton
+                android:id="@+id/btn_audience"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_audience" />
+
+            <ImageButton
+                android:id="@+id/btn_change"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_change" />
+
+
+        </TableRow>
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

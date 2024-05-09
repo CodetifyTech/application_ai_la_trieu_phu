@@ -19,7 +19,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.firebase.Firebase;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,9 +46,9 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
     private function_Answers selectedAnswer;
     private List<function_Questions> questionList = new ArrayList<>();
     private CountDownTimer countDownTimer;
-    private long defaultTime = 30000; // 30 giây
+    private long defaultTime = 30000; // 30s
     private long remainingTime = defaultTime;
-
+    private SoundManager soundManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,12 +59,13 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        soundManager = SoundManager.getInstance(this);
         first_activity();
         findbyID();
         setEvent();
         call_firebase();
-    }
 
+    }
     private void first_activity() {
         isPlaying = false;
         pickAnswerReady = true;
@@ -74,13 +74,12 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         help3Ready = true;
         help4Ready = true;
 
-    }
 
+    }
     public void listCauHoi() {
         function_DialogListCauHoi dialogFragment = new function_DialogListCauHoi();
         dialogFragment.show(getSupportFragmentManager(), "MyDialogFragment");
     }
-
     private void setEvent() {
         btn_showscore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +87,6 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
                 listCauHoi();
             }
         });
-
         btn_5050.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,28 +115,50 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
                 buttonDialogChange();
             }
         });
-        // ivent 4 button
         btnAnswer1.setOnClickListener(buttonClickListener);
         btnAnswer2.setOnClickListener(buttonClickListener);
         btnAnswer3.setOnClickListener(buttonClickListener);
         btnAnswer4.setOnClickListener(buttonClickListener);
     }
-
-
-    // ivent for each button
     private View.OnClickListener buttonClickListener  = new View.OnClickListener() {
         public void onClick(View v) {
             if (v instanceof Button) {
                 Button selectedButton = (Button) v;
                 checkAnswer(selectedButton);
+                stopTimer();
                 setEnableAnswerSelected(selectedButton);
             }
         }
     };
-    @Override
-    public void onClick(View v) {
-        // Xử lý sự kiện click cho các Case (TextView)
-    }
+    //@Override
+//    public void onClick(final View v) {
+//        switch (v.getId()) {
+//            case R.id.btn_Answer1:
+//                checkAnswer(btnAnswer1);
+//                setEnableAnswerSelected(btnAnswer1);
+//                break;
+//            case R.id.btn_Answer2:
+//                checkAnswer(btnAnswer2);
+//                setEnableAnswerSelected(btnAnswer2);
+//                break;
+//            case R.id.btn_Answer3:
+//                checkAnswer(btnAnswer3);
+//                setEnableAnswerSelected(btnAnswer3);
+//                break;
+//            case R.id.btn_Answer4:
+//                checkAnswer(btnAnswer4);
+//                setEnableAnswerSelected(btnAnswer4);
+//                break;
+//            case R.id.btn_change:
+//                NoticeDialog noticeDialog = new NoticeDialog(this);
+//                noticeDialog.setNotification("Bạn thực sự muốn đổi câu hỏi ?", "Đồng ý", "Hủy bỏ");
+//                noticeDialog.show();
+//                break;
+//
+//            default:
+//                break;
+//        }
+//    }
     private void call_firebase() {
         // create DatabaseReference
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -147,7 +167,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 loadQuestions(dataSnapshot);
-                showQuestion(currentQuestionIndex);
+                showQuestion();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -175,9 +195,8 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             question.list = answerList;
             questionList.add(question);
         }
-        randomQuestions = getRandomQuestions(questionList, 16);
+        randomQuestions = shuffleQuestions(questionList, 16);
     }
-
     private int getIndexByButton(Button button) {
         if (button == btnAnswer1) return 0;
         if (button == btnAnswer2) return 1;
@@ -199,90 +218,66 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
                 return null;
         }
     }
-    // display quest
-    private void showQuestion(int questionIndex) {
-        Log.d("check", "Cau hoi hien tai: " + currentQuestionIndex);
-        Log.d("check", "So cau hoi: " + randomQuestions.size());
+    private void showQuestion() {
         if(currentQuestionIndex==0)setEnableAllHelp(false);
         else setEnableHelp();
-        if (questionIndex >= 0 && questionIndex < 15) {
-            Log.e("check", "index income dung.");
-        } else {
-            Log.e("check", "index income saii.");
-        }
-        if (questionIndex >= 0 && questionIndex < 15) {
-            function_Questions question = randomQuestions.get(questionIndex);
+        if (currentQuestionIndex >= 0 && currentQuestionIndex < 15) {
+            function_Questions question = randomQuestions.get(currentQuestionIndex);
             txtQuestion.setText(question.quest);
             btnAnswer1.setText(question.list.get(0).answers);
             btnAnswer2.setText(question.list.get(1).answers);
             btnAnswer3.setText(question.list.get(2).answers);
             btnAnswer4.setText(question.list.get(3).answers);
 
-            // Reset
             setAnswerButtonDrawable(btnAnswer1,R.drawable.pngplayer_answer_background_normal);
             setAnswerButtonDrawable(btnAnswer2,R.drawable.pngplayer_answer_background_normal);
             setAnswerButtonDrawable(btnAnswer3,R.drawable.pngplayer_answer_background_normal);
             setAnswerButtonDrawable(btnAnswer4,R.drawable.pngplayer_answer_background_normal);
-            remainingTime = 30000; // 30 giây
+            remainingTime = 30000; // 30s
             stopTimer();
             startTimer();
-
+            currentQuestion = randomQuestions.get(currentQuestionIndex);
         }
-    }
-
-    // get random quest, follow count la so cau hoi
-    private List<function_Questions> getRandomQuestions(List<function_Questions> questions, int count) {
-        Random random = new Random();
-        List<function_Questions> randomQuestions = new ArrayList<>(questions);
-
-        // check count
-        if (count <= 0 || count > questions.size()) {
-            throw new IllegalArgumentException("Invalid count value");
-        }
-
-        // Xáo trộn danh sách và chỉ lấy count phần tử đầu tiên
-        Collections.shuffle(randomQuestions, random);
-        return randomQuestions.subList(0, count);
     }
     private void checkAnswer(Button selectedAnswerIndex) {
         int index = getIndexByButton(selectedAnswerIndex);
         setAnswerButtonDrawable(selectedAnswerIndex, R.drawable.pngplayer_answer_background_selected);
-
+        soundManager.playSoundAnswer(index);
         currentQuestion = randomQuestions.get(currentQuestionIndex);
         selectedAnswer = currentQuestion.list.get(index);
-        Log.d("check", "checkanswer active"+index);
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Kiểm tra đáp án
-                if (selectedAnswer.check) { //  case true
+                if (selectedAnswer.check) {
+                    //Log.d("checkanswer", "checkanswer chosse:   "+selectedAnswer.getcheck());
+                    soundManager.playSoundAnswerTrue(index);
                     setAnswerButtonDrawable(selectedAnswerIndex, R.drawable.pngplayer_answer_background_true);
                     Toast.makeText(mh_player.this, "Đáp án đúng!", Toast.LENGTH_SHORT).show();
-                } else {  // case false --> intent mh_start
+                } else {
+                    //Log.d("checkanswer", "checkanswer chosse:   "+selectedAnswer.getcheck());
+                    soundManager.playSoundAnswerFault(index);
                     setAnswerButtonDrawable(selectedAnswerIndex, R.drawable.pngplayer_answer_background_wrong);
                     Toast.makeText(mh_player.this, "Đáp án sai! Bạn đã bị loại", Toast.LENGTH_SHORT).show();
                     back_tomhstart();
                 }
-
-
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         currentQuestionIndex++;
                         if (currentQuestionIndex < randomQuestions.size()) {
-                            showQuestion(currentQuestionIndex);
+                            showQuestion();
+                            logQuestion();
                             setEnableHelp();
+                            setEnableAllAnswer(true);
                         } else {
                             Toast.makeText(mh_player.this, "Bạn đã hoàn thành tất cả câu hỏi!", Toast.LENGTH_SHORT).show();
+                            back_tomhstart();
                         }
                     }
-                }, 3000); //  hold 3s after setdrawable selected
+                }, 5000);
             }
-        }, 3000); // hold 3s after setdrawable true or false
+        }, 5000);
     }
-
-
     private void buttonOpenDialog5050() {
         final function_CustomDialog5050 dialog = new function_CustomDialog5050(this);
         dialog.show();
@@ -333,7 +328,6 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             }
         });
     }
-
     private void iventCallfr() {
         for (int i = 0; i < currentQuestion.list.size(); i++) {
             function_Answers answer = currentQuestion.list.get(i);
@@ -342,7 +336,6 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             }
         }
     }
-
     private void buttonDialogAudience() {
         final function_CustomDialogAudience dialog = new function_CustomDialogAudience(this);
         dialog.show();
@@ -360,13 +353,9 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             }
         });
     }
-
     private void iventAudience() {
-
         Toast.makeText(this, ""+Audience(1)+" "+getRandomAnswer(true),Toast.LENGTH_SHORT).show();
         Toast.makeText(this, ""+Audience(2)+" "+getRandomAnswer(true),Toast.LENGTH_SHORT).show();
-        //Toast.makeText(this, ""+Audience(3)+" "+getRandomAnswer(false),Toast.LENGTH_SHORT).show();
-
     }
     private String getRandomAnswer(boolean isCorrect) {
         List<function_Answers> answers = new ArrayList<>();
@@ -381,25 +370,14 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             return "";
         }
     }
-    private String Audience(int index){
-        if (index ==0) return "Đáp án đúng theo tôi là: ";
-        if (index ==1) return "Tôi nghĩ đáp án đúng là: ";
-        if (index ==2) return "Chắc chắc là đáp án: ";
-        if (index ==3) return "Tin tôi đi đáp án đúng là: ";
-        return null;
-    }
-    private void buttonDialogChange() {
-        help4Ready = false;
-        setEnableHelp();
-        setEnableAllHelp(false);
-    }
 
 
 
 
 
 
-    // cac method phu...
+
+    // cac method suport...
     private void back_tomhstart() {
         Intent intent = new Intent(mh_player.this, mh_start.class);
         startActivity(intent);
@@ -412,13 +390,11 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
                 long secondsRemaining = millisUntilFinished / 1000;
                 btn_time.setText("Time: " + secondsRemaining + " s");
             }
-
             @Override
             public void onFinish() {
                 Toast.makeText(mh_player.this, "TIME OUT", Toast.LENGTH_SHORT).show();
                 back_tomhstart();
             }
-
         }.start();
     }
     private void stopTimer() {
@@ -428,7 +404,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
     }
     protected void onPause() {
         super.onPause();
-        stopTimer(); // Dừng bộ đếm thời gian khi activity bị pause
+        stopTimer();
     }
     private void setAnswerButtonDrawable(Button button, int drawableResource) {
         button.setBackgroundResource(drawableResource);
@@ -454,7 +430,6 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
     }
     private  void setEnableAnswerSelected(Button selectedAnswerIndex){
         int index = getIndexByButton(selectedAnswerIndex);
-        Log.d("Check index button", "setEnableAnswer: "+index);
         if (index==0){
             btnAnswer2.setEnabled(false);
             btnAnswer3.setEnabled(false);
@@ -486,6 +461,27 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         btnAnswer3.setEnabled(temp);
         btnAnswer4.setEnabled(temp);
     }
+    private String Audience(int index){
+        if (index ==0) return "Đáp án đúng theo tôi là: ";
+        if (index ==1) return "Tôi nghĩ đáp án đúng là: ";
+        if (index ==2) return "Chắc chắc là đáp án: ";
+        if (index ==3) return "Tin tôi đi đáp án đúng là: ";
+        return null;
+    }
+    private void buttonDialogChange() {
+        help4Ready = false;
+        setEnableHelp();
+        setEnableAllHelp(false);
+    }
+    private List<function_Questions> shuffleQuestions(List<function_Questions> questions, int count) {
+        Random random = new Random();
+        List<function_Questions> randomQuestions = new ArrayList<>(questions);
+        if (count <= 0 || count > questions.size()) {
+            throw new IllegalArgumentException("Count error");
+        }
+        Collections.shuffle(randomQuestions, random);
+        return randomQuestions.subList(0, count);
+    }
     private void findbyID() {
         btn_showscore = (Button) findViewById(R.id.btn_showscore);
         btn_time = (Button) findViewById(R.id.btn_time);
@@ -498,5 +494,22 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         btn_audience = (ImageButton) findViewById(R.id.btn_audience);
         btn_change = (ImageButton) findViewById(R.id.btn_change);
         txtQuestion = (TextView) findViewById(R.id.txtQuestion);
+    }
+    private  void logQuestion(){
+        String quest = currentQuestion.getquest();
+        List<Integer> answers = new ArrayList<>();
+        for (int i = 0; i < currentQuestion.list.size(); i++) {
+            function_Answers answer = currentQuestion.list.get(i);
+            answers.add(i);
+        }
+        Log.d("log quest  : ", quest);
+        Log.d("log answer1: ", String.valueOf(answers.get(0)));
+        Log.d("log answer2: ", String.valueOf(answers.get(1)));
+        Log.d("log answer3: ", String.valueOf(answers.get(2)));
+        Log.d("log answer4: ", String.valueOf(answers.get(3)));
+    }
+    @Override
+    public void onClick(View view) {
+
     }
 }

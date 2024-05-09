@@ -21,6 +21,7 @@ public class mh_start extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.layout_start);
+
         anhXa();
         xuly();
     }
@@ -28,7 +29,6 @@ public class mh_start extends AppCompatActivity {
     private void anhXa() {
         btn_start = findViewById(R.id.btn_start);
         btn_hd = findViewById(R.id.btn_hd);
-
     }
 
     private void xuly() {

@@ -15,6 +15,7 @@ import android.widget.Toast;
 public class mh_start extends AppCompatActivity {
     Button btn;
     Button btn_start, btn_hd;
+    private SoundManager soundManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class mh_start extends AppCompatActivity {
                 Toast.makeText(mh_start.this,
                         "Bạn Đã Sẵn Sàng Đến Với Chương Trình Của Chúng Tôi",
                         Toast.LENGTH_SHORT).show();
-
+                        //soundManager.playMusic(R.raw.gofind);
             startGame();
             }
         });
@@ -60,6 +61,7 @@ public class mh_start extends AppCompatActivity {
 
 
     public void startGame(){
+
         Intent intent = new Intent(this, mh_player.class);
         startActivity(intent);
     }

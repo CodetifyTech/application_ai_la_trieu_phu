@@ -60,6 +60,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             return insets;
         });
         soundManager = SoundManager.getInstance(this);
+        soundManager.playMusic(R.raw.gofind);
         first_activity();
         findbyID();
         setEvent();
@@ -237,6 +238,8 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             stopTimer();
             startTimer();
             currentQuestion = randomQuestions.get(currentQuestionIndex);
+
+
         }
     }
     private void checkAnswer(Button selectedAnswerIndex) {
@@ -254,10 +257,14 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
                     setAnswerButtonDrawable(selectedAnswerIndex, R.drawable.pngplayer_answer_background_true);
                     Toast.makeText(mh_player.this, "Đáp án đúng!", Toast.LENGTH_SHORT).show();
                 } else {
+                    for (int i = 0; i < currentQuestion.list.size(); i++) {
+                        function_Answers answer = currentQuestion.list.get(i);
+                        if (answer.check) soundManager.playSoundAnswerFault(i);
+                    }
                     //Log.d("checkanswer", "checkanswer chosse:   "+selectedAnswer.getcheck());
-                    soundManager.playSoundAnswerFault(index);
                     setAnswerButtonDrawable(selectedAnswerIndex, R.drawable.pngplayer_answer_background_wrong);
                     Toast.makeText(mh_player.this, "Đáp án sai! Bạn đã bị loại", Toast.LENGTH_SHORT).show();
+                    soundManager.playMusic(R.raw.lose);
                     back_tomhstart();
                 }
                 new Handler().postDelayed(new Runnable() {
@@ -277,9 +284,12 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
                 }, 5000);
             }
         }, 5000);
+
+
     }
     private void buttonOpenDialog5050() {
         final function_CustomDialog5050 dialog = new function_CustomDialog5050(this);
+        soundManager.playMusic(R.raw.sound5050);
         dialog.show();
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
@@ -313,7 +323,9 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
     }
     private void buttonOpenDialogCallfr() {
         final function_CustomDialogCallfr dialog = new function_CustomDialogCallfr(this);
+        soundManager.playMusic(R.raw.help_call);
         dialog.show();
+        soundManager.playMusic(R.raw.out_of_time);
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
@@ -338,6 +350,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
     }
     private void buttonDialogAudience() {
         final function_CustomDialogAudience dialog = new function_CustomDialogAudience(this);
+        soundManager.playMusic(R.raw.khan_gia);
         dialog.show();
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
@@ -370,6 +383,11 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             return "";
         }
     }
+    private void buttonDialogChange() {
+        help4Ready = false;
+        setEnableHelp();
+        setEnableAllHelp(false);
+    }
 
 
 
@@ -393,6 +411,7 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
             @Override
             public void onFinish() {
                 Toast.makeText(mh_player.this, "TIME OUT", Toast.LENGTH_SHORT).show();
+                soundManager.playMusic(R.raw.out_of_time);
                 back_tomhstart();
             }
         }.start();
@@ -467,11 +486,6 @@ public class mh_player extends AppCompatActivity implements View.OnClickListener
         if (index ==2) return "Chắc chắc là đáp án: ";
         if (index ==3) return "Tin tôi đi đáp án đúng là: ";
         return null;
-    }
-    private void buttonDialogChange() {
-        help4Ready = false;
-        setEnableHelp();
-        setEnableAllHelp(false);
     }
     private List<function_Questions> shuffleQuestions(List<function_Questions> questions, int count) {
         Random random = new Random();
